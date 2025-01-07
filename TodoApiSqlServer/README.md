@@ -1,4 +1,4 @@
-# asp-todo-docker
+# Todo Api using actual SqlServer
 Web API Sample with ASP.NET Core and Docker
 
 Sample generated using [tutorial](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio-code)
