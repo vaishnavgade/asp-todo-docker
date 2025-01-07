@@ -13,8 +13,8 @@ Dockerfile created using [tutorial](https://learn.microsoft.com/en-us/aspnet/cor
 
 To run the container locally, navigate to the folder containing Dockerfile
 ```
-docker build -t todoapi .
-docker run -it --rm -p 127.0.0.1:8080:8080 --name todoapi_sample todoapi
+docker build -t todoapi-windsor .
+docker run -it --rm -p 127.0.0.1:8080:8080 --name todoapi_windsor todoapi-windsor
 ```
 
 To confirm the service is up and running, visit the [swagger page](http://localhost:8080/swagger/index.html)

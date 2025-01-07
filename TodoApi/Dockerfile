@@ -5,11 +5,11 @@ WORKDIR /source
 
 # Copy project file and restore as distinct layers
 # https://docs.docker.com/reference/dockerfile/#benefits-of-using---link
-COPY --link TodoApi/*.csproj .
+COPY --link ./*.csproj .
 RUN dotnet restore -a $TARGETARCH
 
 # Copy source code and publish app
-COPY --link TodoApi/. .
+COPY --link ./. .
 RUN dotnet publish -a $TARGETARCH -c Release -o /app --no-restore
 
 # Runtime stage/image
