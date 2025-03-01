@@ -9,5 +9,10 @@ public class TodoContext : DbContext
     {
     }
 
-    public DbSet<TodoItem> TodoItems { get; set; } = null!;
+    public DbSet<TodoItem> TodoItems { get; set; }
+
+    // protected override void OnModelCreating(ModelBuilder modelBuilder)
+    // {
+    //     modelBuilder.Entity<TodoItem>().ToTable("TodoItem");
+    // }
 }

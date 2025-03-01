@@ -85,7 +85,7 @@ public class TodoItemsController : ControllerBase
 
         return CreatedAtAction(
             nameof(GetTodoItem),
-            new { id = todoItem.Id },
+            new { id = todoItem.TodoItemId },
             ItemToDTO(todoItem));
     }
 
@@ -107,13 +107,13 @@ public class TodoItemsController : ControllerBase
 
     private bool TodoItemExists(long id)
     {
-        return _context.TodoItems.Any(e => e.Id == id);
+        return _context.TodoItems.Any(e => e.TodoItemId == id);
     }
 
     private static TodoItemDTO ItemToDTO(TodoItem todoItem) =>
        new TodoItemDTO
        {
-           Id = todoItem.Id,
+           Id = todoItem.TodoItemId,
            Name = todoItem.Name,
            IsComplete = todoItem.IsComplete
        };
