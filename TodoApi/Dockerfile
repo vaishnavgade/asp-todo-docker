@@ -1,19 +1,20 @@
 # https://hub.docker.com/_/microsoft-dotnet
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG TARGETARCH
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /source
 
-# Copy project file and restore as distinct layers
-# https://docs.docker.com/reference/dockerfile/#benefits-of-using---link
-COPY --link ./*.csproj .
-RUN dotnet restore -a $TARGETARCH
+# copy csproj and restore as distinct layers
+COPY *.sln .
+COPY TodoApi/*.csproj ./TodoApi/
+RUN ls ./TodoApi/
+RUN dotnet restore
 
-# Copy source code and publish app
-COPY --link ./. .
-RUN dotnet publish -a $TARGETARCH -c Release -o /app --no-restore
+# copy everything else and build app
+COPY TodoApi/. ./TodoApi/
+WORKDIR /source/TodoApi
+RUN dotnet publish -c release -o /app --no-restore
 
-# Runtime stage/image
+# final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-COPY --link --from=build /app .
+COPY --from=build /app ./
 ENTRYPOINT ["dotnet", "TodoApi.dll"]
