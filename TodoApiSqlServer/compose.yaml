@@ -1,0 +1,14 @@
+services:
+  todoapi-base:
+    build: . # build the Docker image
+    container_name: todoapi-base
+    ports:
+      - "8080:8080"
+  sql:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: sql-server-2022
+    ports: # not actually needed, because the two services are on the same network
+      - "1433:1433" 
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=XO@9wMSGl@YgY5u7

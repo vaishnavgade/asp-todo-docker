@@ -1,6 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using TodoApi.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,24 +12,23 @@ builder.Services.AddDbContext<TodoContext>(opt =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Configure Swagger
+app.MapOpenApi();
+app.UseSwaggerUi(options =>
 {
-    app.MapOpenApi();
-    app.UseSwaggerUi(options =>
-    {
-        options.DocumentPath = "/openapi/v1.json";
-    });
+    options.DocumentPath = "/openapi/v1.json";
+});
 
-    using(var scope = app.Services.CreateScope())
-    {
-        var todoContext = scope.ServiceProvider.GetRequiredService<TodoContext>();
-        todoContext.Database.EnsureCreated();
-        todoContext.Seed();
-    }
+// Configure the HTTP request pipeline.
+// if (app.Environment.IsDevelopment())
+using(var scope = app.Services.CreateScope())
+{
+    var todoContext = scope.ServiceProvider.GetRequiredService<TodoContext>();
+    todoContext.Database.EnsureCreated();
+    todoContext.Seed();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
