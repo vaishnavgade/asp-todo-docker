@@ -18,3 +18,10 @@ docker run -it --rm -p 127.0.0.1:8080:8080 --name todoapi_base todoapi-base
 ```
 
 To confirm the service is up and running, visit the [swagger page](http://localhost:8080/swagger/index.html)
+
+## Clean up
+```
+docker rm -vf $(docker ps -aq)
+
+docker rmi -f $(docker images -aq)
+```

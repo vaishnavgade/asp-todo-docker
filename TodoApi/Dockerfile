@@ -1,19 +1,17 @@
 # https://hub.docker.com/_/microsoft-dotnet
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /source
+# Including a secure hash algorithm (SHA) after the image tag in a Dockerfile is a best practice.
+FROM mcr.microsoft.com/dotnet/sdk:9.0@sha256:3fcf6f1e809c0553f9feb222369f58749af314af6f063f389cbd2f913b4ad556 AS build
+WORKDIR /src
 
-# copy csproj and restore as distinct layers
-COPY *.sln .
-COPY TodoApi/*.csproj ./TodoApi/
+# Copy everything
+COPY . ./
+# Restore as distinct layers
 RUN dotnet restore
+# Build and publish a release
+RUN dotnet publish -o out
 
-# copy everything else and build app
-COPY TodoApi/. ./TodoApi/
-WORKDIR /source/TodoApi
-RUN dotnet publish -c release -o /app --no-restore
-
-# final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
-WORKDIR /app
-COPY --from=build /app ./
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:9.0@sha256:b4bea3a52a0a77317fa93c5bbdb076623f81e3e2f201078d89914da71318b5d8
+WORKDIR /src
+COPY --from=build /src/out .
 ENTRYPOINT ["dotnet", "TodoApi.dll"]
