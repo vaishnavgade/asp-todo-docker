@@ -1,18 +1,20 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 export interface Todo {
-  title: string;
-  completed: boolean;
+  name: string;
+  isComplete: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
 export class TodosService {
     todos: Todo[] = [];
+    private http = inject(HttpClient);
 
     addItem(title: string): void {
       const todo: Todo = {
-        title,
-        completed: false,
+        name: title,
+        isComplete: false,
       };
       this.todos.push(todo);
     }
@@ -23,7 +25,7 @@ export class TodosService {
     }
 
     clearCompleted(): void {
-      this.todos = this.todos.filter((todo) => !todo.completed);
+      this.todos = this.todos.filter((todo) => !todo.isComplete);
     }
 
     toggleAll(completed: boolean): void {
@@ -33,9 +35,9 @@ export class TodosService {
     getItems(type = 'all'): Todo[] {
       switch (type) {
         case 'active':
-          return this.todos.filter((todo) => !todo.completed);
+          return this.todos.filter((todo) => !todo.isComplete);
         case 'completed':
-          return this.todos.filter((todo) => todo.completed);
+          return this.todos.filter((todo) => todo.isComplete);
       }
 
       return this.todos;

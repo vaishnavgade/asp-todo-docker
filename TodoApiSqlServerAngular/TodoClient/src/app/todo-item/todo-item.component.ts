@@ -20,7 +20,7 @@ export class TodoItemComponent implements AfterViewChecked {
   isEditing = false;
 
   toggleTodo(): void {
-    this.todo.completed = !this.todo.completed;
+    this.todo.isComplete = !this.todo.isComplete;
   }
 
   removeTodo(): void {
@@ -36,14 +36,14 @@ export class TodoItemComponent implements AfterViewChecked {
   }
 
   handleFocus(e: Event) {
-    this.title = this.todo.title;
+    this.title = this.todo.name;
   }
 
   updateTodo() {
     if (!this.title) {
       this.remove.emit(this.todo);
     } else {
-      this.todo.title = this.title;
+      this.todo.name = this.title;
     }
 
     this.isEditing = false;
