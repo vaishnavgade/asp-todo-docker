@@ -1,6 +1,6 @@
 services:
   todoapi-base:
-    build: . # build the Docker image
+    build: ./TodoServer # build the Docker image
     container_name: todoapi-base
     ports:
       - "8080:8080"

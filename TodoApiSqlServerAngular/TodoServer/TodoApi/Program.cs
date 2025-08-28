@@ -10,6 +10,15 @@ builder.Services.AddDbContext<TodoContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("TodoDb")));
     // opt.UseInMemoryDatabase("TodoList"));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder => builder
+        .WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
+});
+
 var app = builder.Build();
 
 // Configure Swagger
@@ -27,6 +36,9 @@ using(var scope = app.Services.CreateScope())
     todoContext.Database.EnsureCreated();
     todoContext.Seed();
 }
+
+// It is important to call the UseCors method before the UseAuthorization method.
+app.UseCors("CorsPolicy");
 
 //app.UseHttpsRedirection();
 app.UseAuthorization();

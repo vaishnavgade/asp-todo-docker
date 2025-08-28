@@ -4,10 +4,10 @@ import { Todo, TodosService } from '../todos.service';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
 
 @Component({
-    selector: 'app-todo-list',
-    standalone: true,
-    imports: [TodoItemComponent],
-    templateUrl: './todo-list.component.html',
+  selector: 'app-todo-list',
+  standalone: true,
+  imports: [TodoItemComponent],
+  templateUrl: './todo-list.component.html'
 })
 export class TodoListComponent {
   private location = inject(Location);

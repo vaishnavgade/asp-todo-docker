@@ -1,7 +1,7 @@
-<li [class.completed]="todo.completed" [class.editing]="isEditing">
+<li [class.completed]="todo.isComplete" [class.editing]="isEditing">
   <div class="view">
-      <input class="toggle" type="checkbox" (click)="toggleTodo()" [checked]="todo.completed" />
-      <label (dblclick)="startEdit()">{{ todo.title }}</label>
+      <input class="toggle" type="checkbox" (click)="toggleTodo()" [checked]="todo.isComplete" />
+      <label (dblclick)="startEdit()">{{ todo.name }}</label>
       <button class="destroy" (click)="removeTodo()"></button>
   </div>
   @if (isEditing) {
