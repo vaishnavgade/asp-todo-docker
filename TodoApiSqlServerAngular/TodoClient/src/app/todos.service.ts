@@ -35,7 +35,7 @@ export class TodosService {
 
   removeItem(todo: Todo): void {
     const index = this.todos.indexOf(todo);
-    this.http.delete(`${this.url}/api/TodoItems/${index}`).subscribe(res => {
+    this.http.delete(`${this.url}/api/TodoItems/${todo.id}`).subscribe(res => {
       this.todos.splice(index, 1);
       console.log(res);
     });
@@ -55,11 +55,17 @@ export class TodosService {
     });
   }
 
+  updateTodo(todo: Todo): void {
+    this.http.put(`${this.url}/api/TodoItems/${todo.id}`, todo).subscribe(res => {
+      console.log(`${todo.id} updated`);
+    });
+  }
+
   toggleAll(isComplete: boolean): void {
     this.todos = this.todos.map((todo) => {
       let updatedTodo = ({ ...todo, isComplete });
-      this.http.put(`${this.url}/api/TodoItems/${todo.id}`, todo).subscribe(res => {
-        console.log(`${todo.id} updated`);
+      this.http.put(`${this.url}/api/TodoItems/${updatedTodo.id}`, updatedTodo).subscribe(res => {
+        console.log(`${updatedTodo.id} updated`);
       });
       return updatedTodo;
     });

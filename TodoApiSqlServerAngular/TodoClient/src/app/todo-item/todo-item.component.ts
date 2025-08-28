@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewChecked, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Todo } from '../todos.service';
+import { Todo, TodosService } from '../todos.service';
 
 @Component({
   selector: 'app-todo-item',
@@ -16,11 +16,13 @@ export class TodoItemComponent implements AfterViewChecked {
   @ViewChild('todoInputRef') inputRef?: ElementRef;
 
   title = '';
-
   isEditing = false;
+
+  private todosService = inject(TodosService);
 
   toggleTodo(): void {
     this.todo.isComplete = !this.todo.isComplete;
+    this.todosService.updateTodo(this.todo);
   }
 
   removeTodo(): void {
@@ -44,6 +46,7 @@ export class TodoItemComponent implements AfterViewChecked {
       this.remove.emit(this.todo);
     } else {
       this.todo.name = this.title;
+      this.todosService.updateTodo(this.todo);
     }
 
     this.isEditing = false;
