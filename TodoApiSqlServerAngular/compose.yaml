@@ -1,7 +1,14 @@
 services:
-  todoapi-base:
+  todoclient:
+    build:
+      context: ./TodoClient
+      dockerfile: Dockerfile
+    image: todoclient
+    ports:
+      - "8081:8081"
+  todoapi:
     build: ./TodoServer # build the Docker image
-    container_name: todoapi-base
+    container_name: todoapi
     ports:
       - "8080:8080"
   sql:

@@ -13,7 +13,7 @@ builder.Services.AddDbContext<TodoContext>(opt =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", builder => builder
-        .WithOrigins("http://localhost:4200")
+        .WithOrigins("http://localhost:4200","http://localhost:8081")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials());

@@ -1,5 +1,6 @@
 import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 export interface Todo {
   id: number;
@@ -14,11 +15,9 @@ export class TodosService {
   public filteredTodos: Signal<Todo[]> = signal(<Todo[]>{});
 
   private http = inject(HttpClient);
-  // private url: string = 'https://localhost:8080';
-  private url: string = 'http://localhost:5038';
 
   constructor() {
-    this.http.get<Todo[]>(`${this.url}/api/TodoItems`).subscribe(res => {
+    this.http.get<Todo[]>(`${environment.apiUrl}/api/TodoItems`).subscribe(res => {
       this.todos.set(res);
       console.log(`Fetched ${this.todos().length} items`);
     });
@@ -26,14 +25,14 @@ export class TodosService {
 
   addItem(title: string): void {
     const todo: Todo = { id: 0, name: title, isComplete: false };
-    this.http.post<Todo>(`${this.url}/api/TodoItems`, todo).subscribe(res => {
+    this.http.post<Todo>(`${environment.apiUrl}/api/TodoItems`, todo).subscribe(res => {
       this.todos.update(values => [...values, res]);
       console.log(res);
     });
   }
 
   removeItem(todo: Todo): void {
-    this.http.delete(`${this.url}/api/TodoItems/${todo.id}`).subscribe(res => {
+    this.http.delete(`${environment.apiUrl}/api/TodoItems/${todo.id}`).subscribe(res => {
       this.todos.update(values => values.filter(value => value.id !== todo.id));
       console.log(res);
     });
@@ -46,7 +45,7 @@ export class TodosService {
           return true;
         }
         else {
-          this.http.delete(`${this.url}/api/TodoItems/${todo.id}`).subscribe(res => {
+          this.http.delete(`${environment.apiUrl}/api/TodoItems/${todo.id}`).subscribe(res => {
             console.log(`${todo.id} deleted`);
           });
           return false;
@@ -56,7 +55,7 @@ export class TodosService {
   }
 
   updateTodo(todo: Todo): void {
-    this.http.put(`${this.url}/api/TodoItems/${todo.id}`, todo).subscribe(res => {
+    this.http.put(`${environment.apiUrl}/api/TodoItems/${todo.id}`, todo).subscribe(res => {
       console.log(`${todo.id} updated`);
     });
   }
@@ -65,7 +64,7 @@ export class TodosService {
     this.todos.update(values => {
       return values.map((todo) => {
         let updatedTodo = ({ ...todo, isComplete });
-        this.http.put(`${this.url}/api/TodoItems/${updatedTodo.id}`, updatedTodo).subscribe(res => {
+        this.http.put(`${environment.apiUrl}/api/TodoItems/${updatedTodo.id}`, updatedTodo).subscribe(res => {
           console.log(`${updatedTodo.id} updated`);
         });
         return updatedTodo;
