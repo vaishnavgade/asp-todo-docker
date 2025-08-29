@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { Location } from '@angular/common';
 import { Todo, TodosService } from '../todos.service';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
@@ -13,12 +13,12 @@ export class TodoListComponent {
   private location = inject(Location);
   private todosService = inject(TodosService);
 
-  get todos(): Todo[] {
+  get todos(): Signal<Todo[]> {
     const filter = this.location.path().split('/')[1] || 'all';
     return this.todosService.getItems(filter);
   }
 
-  get activeTodos(): Todo[] {
+  get activeTodos(): Signal<Todo[]> {
     return this.todosService.getItems('active');
   }
 

@@ -1,9 +1,5 @@
 # TodoClient
 
-## Necessary Fixes
-
-1. Todo List is only updating after changing focus from Input. Switch to signals?
-
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.0.
 
 ## Development server

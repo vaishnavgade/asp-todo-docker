@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { Location } from '@angular/common';
 import { Todo, TodosService } from '../todos.service';
 import { RouterLink } from '@angular/router';
@@ -13,15 +13,15 @@ export class FooterComponent {
   private location = inject(Location);
   private todosService = inject(TodosService);
 
-  get todos(): Todo[] {
+  get todos(): Signal<Todo[]> {
     return this.todosService.getItems();
   }
 
-  get activeTodos(): Todo[] {
+  get activeTodos(): Signal<Todo[]> {
     return this.todosService.getItems('active');
   }
 
-  get completedTodos(): Todo[] {
+  get completedTodos(): Signal<Todo[]> {
     return this.todosService.getItems('completed');
   }
 

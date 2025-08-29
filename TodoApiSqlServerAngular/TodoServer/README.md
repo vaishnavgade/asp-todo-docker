@@ -6,12 +6,12 @@ Sample generated using [tutorial](https://learn.microsoft.com/en-us/aspnet/core/
 To run natively
 ```
 dotnet dev-certs https --trust
-dotnet run --launch-profile https
+dotnet run --launch-profile https --project ./TodoApi/TodoApi.csproj
 ```
 
 Or to run with developer appsettings
 ```
-dotnet run --launch-profile http
+dotnet run --launch-profile http --project ./TodoApi/TodoApi.csproj
 ```
 
 Dockerfile created using [tutorial](https://learn.microsoft.com/en-us/dotnet/core/docker/build-container?tabs=linux&pivots=dotnet-9-0)

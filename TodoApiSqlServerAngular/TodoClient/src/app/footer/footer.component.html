@@ -1,8 +1,8 @@
-@if (todos.length > 0) {
+@if (todos().length > 0) {
   <footer class="footer">
     <span class="todo-count">
-      <strong>{{ activeTodos.length }}</strong>
-      {{ activeTodos.length === 1 ? "item" : "items" }} left
+      <strong>{{ activeTodos().length }}</strong>
+      {{ activeTodos().length === 1 ? "item" : "items" }} left
     </span>
     <ul class="filters">
       <li>
@@ -15,7 +15,7 @@
         <a routerLink="/completed" [class.selected]="filter === 'completed'">Completed</a>
       </li>
     </ul>
-    @if (completedTodos.length > 0) {
+    @if (completedTodos().length > 0) {
       <button type="button" class="clear-completed" (click)="clearCompleted()">
         Clear Completed
       </button>
