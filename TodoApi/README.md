@@ -3,9 +3,10 @@ Web API Sample with ASP.NET Core and Docker using Microsoft Dependency Injection
 
 Sample generated using [tutorial](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio-code)
 
-To run locally
+To run locally (within TodoApi.csproj)
 ```
-dotnet dev-certs https --trust
+dotnet dev-certs https --trust;
+dotnet clean; dotnet build;
 dotnet run --launch-profile https
 ```
 
