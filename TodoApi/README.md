@@ -10,7 +10,7 @@ dotnet clean; dotnet build;
 dotnet run --launch-profile https
 ```
 
-Dockerfile created using [tutorial](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/building-net-docker-images?view=aspnetcore-8.0)
+Dockerfile created using [tutorial](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/building-net-docker-images?view=aspnetcore-10.0#the-dockerfile)
 
 To run the container locally, navigate to the folder containing Dockerfile
 ```
@@ -22,7 +22,5 @@ To confirm the service is up and running, visit the [swagger page](http://localh
 
 ## Clean up
 ```
-docker rm -vf $(docker ps -aq)
-
-docker rmi -f $(docker images -aq)
+docker rm -vf $(docker ps -aq); docker rmi -f $(docker images -aq)
 ```
