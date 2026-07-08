@@ -3,22 +3,7 @@ Web API Sample with ASP.NET Core + Sql Server and Docker using Microsoft Depende
 
 Sample generated using [tutorial](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio-code)
 
-To run natively
-```
-dotnet dev-certs https --trust
-dotnet run --launch-profile https --project ./TodoApi/TodoApi.csproj
-```
-
-Or to run with developer appsettings
-```
-dotnet run --launch-profile http --project ./TodoApi/TodoApi.csproj
-```
-
-Dockerfile created using [tutorial](https://learn.microsoft.com/en-us/dotnet/core/docker/build-container?tabs=linux&pivots=dotnet-9-0)
-
-Docker Compose created usings [tutorial1](https://www.twilio.com/en-us/blog/developers/community/containerize-your-aspdotnet-core-application-and-sql-server-with-docker) and [tutorial2](https://www.twilio.com/en-us/blog/developers/community/containerize-your-sql-server-with-docker-and-aspnet-core-with-ef-core)
-
-To run using docker natively, navigate to the folder containing Dockerfile
+To run locally (within TodoApi.csproj)
 ```
 docker run -it \
     -e "ACCEPT_EULA=Y" \
@@ -26,22 +11,24 @@ docker run -it \
     -p 1433:1433 \
     --name sql-server-2022 \
     -d \
-mcr.microsoft.com/mssql/server:2022-latest
+mcr.microsoft.com/mssql/server:2022-latest;
 
-docker build -t todoapi-base .
-
-docker run -it --rm -p 127.0.0.1:8080:8080 --name todoapi_base todoapi-base
+dotnet clean; dotnet build;
+dotnet run --launch-profile http --project ./TodoApi/TodoApi.csproj
 ```
+
+Dockerfile created using [tutorial](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/building-net-docker-images?view=aspnetcore-10.0#the-dockerfile)
+
+Docker Compose created usings [tutorial1](https://www.twilio.com/en-us/blog/developers/community/containerize-your-aspdotnet-core-application-and-sql-server-with-docker) and [tutorial2](https://www.twilio.com/en-us/blog/developers/community/containerize-your-sql-server-with-docker-and-aspnet-core-with-ef-core)
 
 To run using docker compose
 ```
-docker compose up
+docker compose up --build
 ```
 
 To confirm the service is up and running, visit the [swagger page](http://localhost:8080/swagger/index.html)
 
 ## Clean up
 ```
-docker compose down
-docker rm -vf $(docker ps -aq); docker rmi -f $(docker images -aq)
+docker compose down; docker rm -vf $(docker ps -aq); docker rmi -f $(docker images -aq)
 ```

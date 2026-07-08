@@ -7,7 +7,7 @@ This single page web application contains the following components running in Do
 
 ## Start
 
-To start this application, run the command `docker compose up`
+To start this application, run the command `docker compose up --build`
 
 To confirm the Server is up and running, visit the [swagger page](http://localhost:8080/swagger/index.html)
 
@@ -15,6 +15,5 @@ To confirm the Client is up and running, visit the [home page](http://localhost:
 
 ## Clean up
 ```
-docker compose down
-docker rm -vf $(docker ps -aq); docker rmi -f $(docker images -aq)
+docker compose down; docker rm -vf $(docker ps -aq); docker rmi -f $(docker images -aq)
 ```

@@ -24,7 +24,7 @@ Docker Compose created usings [tutorial1](https://www.twilio.com/en-us/blog/deve
 
 To run using docker compose
 ```
-docker compose up
+docker compose up --build
 ```
 
 To confirm the service is up and running, visit the [swagger page](http://localhost:8080/swagger/index.html)
